@@ -9,12 +9,15 @@ function App() {
   const [selectedOptions, setSelectedOptions] = useState([]);
   const [operationCode, setOperationCode] = useState(null);
 
+  // Updated URL for the POST request
+  const backendURL = 'https://bajaj-backend-82ng.vercel.app';
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
     try {
       const parsedInput = JSON.parse(input);
-      const res = await axios.post('http://localhost:3001/bfhl', parsedInput);
+      const res = await axios.post(`${backendURL}/bfhl`, parsedInput);
       setResponse(res.data);
     } catch (err) {
       setError('Invalid JSON input or API error');
@@ -23,7 +26,7 @@ function App() {
 
   const handleGetRequest = async () => {
     try {
-      const res = await axios.get('http://localhost:3001/bfhl');
+      const res = await axios.get(`${backendURL}/bfhl`);
       setOperationCode(res.data.operation_code);
     } catch (err) {
       setError('Error fetching operation code');
