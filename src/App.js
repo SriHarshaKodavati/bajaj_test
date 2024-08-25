@@ -16,16 +16,11 @@ function App() {
     e.preventDefault();
     setError('');
     try {
-      // Parse the input and validate JSON format
       const parsedInput = JSON.parse(input);
-
-      // Make the POST request
       const res = await axios.post(`${backendURL}/bfhl`, parsedInput);
       setResponse(res.data);
     } catch (err) {
-      // Handle invalid JSON or API errors
       setError('Invalid JSON input or API error');
-      setResponse(null);
     }
   };
 
@@ -52,8 +47,7 @@ function App() {
       email: response.email,
       roll_number: response.roll_number
     };
-
-    // Include selected options in the filtered response
+    
     selectedOptions.forEach(option => {
       if (option === 'Alphabets') filteredResponse.alphabets = response.alphabets;
       if (option === 'Numbers') filteredResponse.numbers = response.numbers;
@@ -79,11 +73,10 @@ function App() {
             />
             <button type="submit">Submit POST Request</button>
           </form>
-          {error && <p className="error">{error}</p>}
           {response && (
             <div className="response-section">
               <h3>Response:</h3>
-              <select multiple onChange={handleSelectChange} style={{ marginTop: '10px' }}>
+              <select multiple onChange={handleSelectChange} value={selectedOptions}>
                 <option value="Alphabets">Alphabets</option>
                 <option value="Numbers">Numbers</option>
                 <option value="Highest alphabet">Highest alphabet</option>
@@ -100,6 +93,7 @@ function App() {
           )}
         </div>
       </div>
+      {error && <p className="error">{error}</p>}
     </div>
   );
 }
