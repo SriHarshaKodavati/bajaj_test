@@ -80,6 +80,7 @@ function App() {
           {response && (
             <div className="response-section">
               <h3>Response:</h3>
+              <p>Select the options below to view specific parts of the response:</p>
               <div>
                 <label>
                   <input
