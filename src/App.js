@@ -33,9 +33,13 @@ function App() {
     }
   };
 
-  const handleSelectChange = (e) => {
-    const options = Array.from(e.target.selectedOptions, option => option.value);
-    setSelectedOptions(options);
+  const handleCheckboxChange = (e) => {
+    const value = e.target.value;
+    setSelectedOptions(prevOptions => 
+      prevOptions.includes(value)
+        ? prevOptions.filter(option => option !== value)
+        : [...prevOptions, value]
+    );
   };
 
   const renderFilteredResponse = () => {
@@ -76,11 +80,35 @@ function App() {
           {response && (
             <div className="response-section">
               <h3>Response:</h3>
-              <select multiple onChange={handleSelectChange} value={selectedOptions}>
-                <option value="Alphabets">Alphabets</option>
-                <option value="Numbers">Numbers</option>
-                <option value="Highest alphabet">Highest alphabet</option>
-              </select>
+              <div>
+                <label>
+                  <input
+                    type="checkbox"
+                    value="Alphabets"
+                    checked={selectedOptions.includes('Alphabets')}
+                    onChange={handleCheckboxChange}
+                  />
+                  Alphabets
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    value="Numbers"
+                    checked={selectedOptions.includes('Numbers')}
+                    onChange={handleCheckboxChange}
+                  />
+                  Numbers
+                </label>
+                <label>
+                  <input
+                    type="checkbox"
+                    value="Highest alphabet"
+                    checked={selectedOptions.includes('Highest alphabet')}
+                    onChange={handleCheckboxChange}
+                  />
+                  Highest alphabet
+                </label>
+              </div>
               {renderFilteredResponse()}
             </div>
           )}
